@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>기초설계 수업 안내</title>
+<style>
+:root{--bg:#f7f8fa;--card:#fff;--ink:#1f2933;--sub:#5b6b7a;--line:#e1e6eb;--main:#2563eb;--soft:#e8f0fe;--warn:#fff4e0}
+@media (prefers-color-scheme:dark){:root{--bg:#14181d;--card:#1d2329;--ink:#e8edf2;--sub:#9aa8b5;--line:#2c353d;--main:#6ea0ff;--soft:#1f2c45;--warn:#3a2f18}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 "Malgun Gothic","Apple SD Gothic Neo",sans-serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px 56px}
+h1{font-size:1.7rem;margin:.2em 0 .1em}
+h2{font-size:1.2rem;margin:1.8em 0 .6em}
+.sub{color:var(--sub);margin:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+dl{display:grid;grid-template-columns:7em 1fr;gap:6px 12px;margin:0}
+dt{color:var(--sub)}dd{margin:0}
+ol{margin:.3em 0 0;padding-left:1.3em}
+.bars{display:flex;height:34px;border-radius:8px;overflow:hidden;margin:8px 0}
+.bars div{display:flex;align-items:center;justify-content:center;font-size:.85rem;color:#fff;white-space:nowrap}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.92rem}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px}
+input[type=search]{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font:inherit}
+.weeks{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}
+.week{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.week button{all:unset;box-sizing:border-box;display:flex;gap:12px;align-items:center;width:100%;padding:12px 14px;cursor:pointer}
+.week button:focus-visible{outline:2px solid var(--main);outline-offset:-2px}
+.no{flex:none;min-width:3.4em;text-align:center;background:var(--soft);color:var(--main);border-radius:6px;font-weight:700;font-size:.9rem;padding:2px 6px}
+.t{flex:1}
+.week .more{display:none;padding:0 14px 14px 14px;color:var(--sub);font-size:.95rem}
+.week.open .more{display:block}
+.exam{background:var(--warn);border-left:4px solid #f59e0b;padding:8px 12px;border-radius:6px;margin:4px 0 0;font-size:.92rem;color:var(--ink)}
+.exam-row{list-style:none}
+.empty{color:var(--sub);display:none;margin-top:12px}
+footer{margin-top:32px;color:var(--sub);font-size:.85rem}
+</style>
+</head>
+<body>
+<main>
+<h1>기초설계 수업 안내</h1>
+<p class="sub">1학년 · 3학점 · 14주 · 수강 40명</p>
+
+<h2>수업 소개</h2>
+<div class="card">
+<dl>
+<dt>교재</dt><dd>창의적공학설계 (김은경 지음, 한빛미디어)</dd>
+<dt>수업 방식</dt><dd>14주 모두 강의식, PPT 활용</dd>
+</dl>
+<p style="margin:12px 0 4px;color:var(--sub)">학습목표</p>
+<ol>
+<li>공학과 창의성을 바로 이해한다.</li>
+<li>공학설계에 필요한 도구를 활용할 수 있다.</li>
+<li>팀 과제를 성공적으로 수행할 수 있다.</li>
+</ol>
+</div>
+
+<h2>평가 방법</h2>
+<div class="card">
+<div class="bars" role="img" aria-label="팀 프로젝트 40, 기말고사 30, 중간고사 20, 출석 10">
+<div style="width:40%;background:#2563eb">팀 프로젝트 40</div>
+<div style="width:30%;background:#0f766e">기말고사 30</div>
+<div style="width:20%;background:#b45309">중간고사 20</div>
+<div style="width:10%;background:#6b7280">출석 10</div>
+</div>
+<div class="legend">
+<span><i style="background:#2563eb"></i>팀 프로젝트 40%</span>
+<span><i style="background:#0f766e"></i>기말고사 30%</span>
+<span><i style="background:#b45309"></i>중간고사 20%</span>
+<span><i style="background:#6b7280"></i>출석 10%</span>
+</div>
+</div>
+
+<h2>주차별 안내</h2>
+<input type="search" id="q" placeholder="주제로 찾기 (예: 마인드맵, 스캠퍼)" aria-label="주차 검색">
+<ul class="weeks" id="weeks"></ul>
+<p class="empty" id="empty">찾는 주제가 없습니다.</p>
+
+<footer>※ 주차별 과제와 시험 범위는 수업 시간에 따로 안내합니다.</footer>
+</main>
+<script>
+var W=[
+["창의성에 대한 이해"],
+["브레인 스토밍, 창의적 공학설계"],
+["팀워크와 팀 운영방법"],
+["마인드맵 제대로 활용하기"],
+["문제인식하기","문제 정의 5~7주차 묶음"],
+["시스템사고를 통해 문제인식하기","문제 정의 5~7주차 묶음"],
+["진짜문제 정의하기 (기능분석, 모순분석)","문제 정의 5~7주차 묶음","7주차 수업 뒤 중간고사"],
+["스캠퍼를 활용한 아이디어 도출"],
+["발명원리를 활용한 아이디어 도출"],
+["분리원리를 활용한 아이디어 도출"],
+["AIST를 활용한 아이디어 도출"],
+["공학변수"],
+["아이디어 평가하기"],
+["개방형, 지역사회연계, 적정기술 과제","14주차 수업 뒤 기말고사"]
+];
+var ul=document.getElementById('weeks');
+W.forEach(function(w,i){
+  var li=document.createElement('li');li.className='week';li.dataset.t=w[0];
+  var b=document.createElement('button');b.setAttribute('aria-expanded','false');
+  b.innerHTML='<span class="no">'+(i+1)+'주차</span><span class="t"></span>';
+  b.querySelector('.t').textContent=w[0];
+  var m=document.createElement('div');m.className='more';
+  var info=['강의식 · PPT'];
+  if(w[1])info.push(w[1]);
+  m.textContent=info.join(' · ');
+  if(w[2]){var e=document.createElement('p');e.className='exam';e.textContent=w[2];m.appendChild(e);}
+  b.onclick=function(){var o=li.classList.toggle('open');b.setAttribute('aria-expanded',o)};
+  li.appendChild(b);li.appendChild(m);ul.appendChild(li);
+});
+document.getElementById('q').oninput=function(){
+  var k=this.value.trim().toLowerCase(),n=0;
+  ul.querySelectorAll('.week').forEach(function(li){
+    var show=li.dataset.t.toLowerCase().indexOf(k)>-1;
+    li.style.display=show?'':'none';if(show)n++;
+  });
+  document.getElementById('empty').style.display=n?'none':'block';
+};
+</script>
+</body>
+</html>
